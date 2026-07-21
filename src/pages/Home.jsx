@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Nav } from '../components/Nav';
 import { Hero } from '../components/Hero';
 import { Marquee } from '../components/Marquee';
@@ -8,14 +9,16 @@ import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
 
 export function Home() {
-  // If arriving at "/" with a hash (e.g. from a project page's "Back to work" link),
-  // scroll to that section once the page has rendered.
+  const location = useLocation();
+
+  // Scroll to the matching section whenever the URL hash changes
+  // (e.g. clicking "Work" in the nav, or "Back to work" from a project page).
   useEffect(() => {
-    if (window.location.hash) {
-      const el = document.querySelector(window.location.hash);
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
-  }, []);
+  }, [location.hash]);
 
   return (
     <>
